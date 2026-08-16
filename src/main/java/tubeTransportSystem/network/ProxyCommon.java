@@ -28,7 +28,7 @@ public class ProxyCommon {
         config = new Configuration(file);
         CONFIG_MAX_SPEED = MathHelper.clamp_double(config.get("General", "MaxTubeSpeed", 0.5, "The maximum speed an entity can travel through the Transport Tubes").getDouble(), 0, 10);
         CONFIG_MAX_SPEED_INVERSE = -CONFIG_MAX_SPEED;
-        CONFIG_MAX_SPEED_TURBO = MathHelper.clamp_double(config.get("General", "MaxTubeSpeedTurbo", 0.5, "The maximum speed an entity can travel through the Turbo Transport Tubes").getDouble(), 0, 10);
+        CONFIG_MAX_SPEED_TURBO = MathHelper.clamp_double(config.get("General", "MaxTubeSpeedTurbo", 0.9, "The maximum speed an entity can travel through the Turbo Transport Tubes").getDouble(), 0, 10);
         CONFIG_MAX_SPEED_TURBO_INVERSE = -CONFIG_MAX_SPEED_TURBO;
     }
 
