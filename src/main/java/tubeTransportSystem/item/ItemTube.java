@@ -62,7 +62,18 @@ public class ItemTube extends ItemBlockWithMetadata {
 
     @Override
     public boolean placeBlockAt(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int metadata) {
-        int meta = metadata >= 10 ? metadata - 10 : side;
+        int meta = 0;
+
+        if (metadata >= 10)
+            meta = metadata - 10;
+        else {
+            if (side == 5)
+                meta = 4;
+            else if (side == 4)
+                meta = 5;
+            else
+                meta = side;
+        }
 
         if (!world.setBlock(x, y, z, field_150939_a, meta, 3))
             return false;
