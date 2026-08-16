@@ -11,8 +11,11 @@ import org.lwjgl.opengl.GL11;
 import tubeTransportSystem.block.BlockStation;
 import tubeTransportSystem.block.BlockStationHorizontal;
 import tubeTransportSystem.block.BlockTube;
+import tubeTransportSystem.block.BlockTubeTurbo;
 import tubeTransportSystem.network.ProxyClient;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
+
+import static tubeTransportSystem.util.Utilities.isBlockTube;
 
 public class RenderStation implements ISimpleBlockRenderingHandler {
     public static int ID;
@@ -100,7 +103,7 @@ public class RenderStation implements ISimpleBlockRenderingHandler {
 
         if (block == BlockStation.instance) {
             Block blockDown = world.getBlock(x, y - 1, z), blockUp = world.getBlock(x, y + 1, z);
-            renderer.setRenderBounds(0.01, blockDown != BlockTube.instance && blockDown != block ? 0.01 : 0, 0.01, 0.99, blockUp != BlockTube.instance && blockUp != block ? 0.99 : 1, 0.99);
+            renderer.setRenderBounds(0.01, isBlockTube(blockDown)== false && blockDown != block ? 0.01 : 0, 0.01, 0.99, isBlockTube(blockUp)== false && blockUp != block ? 0.99 : 1, 0.99);
             renderer.renderStandardBlock(block, x, y, z);
         } else {
             int meta = world.getBlockMetadata(x, y, z);
@@ -110,24 +113,24 @@ public class RenderStation implements ISimpleBlockRenderingHandler {
             double posX = 0, negX = 0, posY = 0, negY = 0, posZ = 0, negZ = 0;
 
             if (d == ForgeDirection.NORTH) {
-                if (blockDown == BlockStationHorizontal.instance || blockDown == BlockTube.instance)
+                if (blockDown == BlockStationHorizontal.instance || isBlockTube(blockDown))
                     negZ = -0.01;
-                if (blockUp == BlockStationHorizontal.instance || blockUp == BlockTube.instance)
+                if (blockUp == BlockStationHorizontal.instance || isBlockTube(blockUp))
                     posZ = 0.01;
             } else if (d == ForgeDirection.SOUTH) {
-                if (blockUp == BlockStationHorizontal.instance || blockUp == BlockTube.instance)
+                if (blockUp == BlockStationHorizontal.instance || isBlockTube(blockUp))
                     negZ = -0.01;
-                if (blockDown == BlockStationHorizontal.instance || blockDown == BlockTube.instance)
+                if (blockDown == BlockStationHorizontal.instance || isBlockTube(blockDown))
                     posZ = 0.01;
             } else if (d == ForgeDirection.EAST) {
-                if (blockUp == BlockStationHorizontal.instance || blockUp == BlockTube.instance)
+                if (blockUp == BlockStationHorizontal.instance || isBlockTube(blockUp))
                     negX = -0.01;
-                if (blockDown == BlockStationHorizontal.instance || blockDown == BlockTube.instance)
+                if (blockDown == BlockStationHorizontal.instance || isBlockTube(blockDown))
                     posX = 0.01;
             } else if (d == ForgeDirection.WEST) {
-                if (blockDown == BlockStationHorizontal.instance || blockDown == BlockTube.instance)
+                if (blockDown == BlockStationHorizontal.instance || isBlockTube(blockDown))
                     negX = -0.01;
-                if (blockUp == BlockStationHorizontal.instance || blockUp == BlockTube.instance)
+                if (blockUp == BlockStationHorizontal.instance || isBlockTube(blockUp))
                     posX = 0.01;
             }
 

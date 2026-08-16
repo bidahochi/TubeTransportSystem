@@ -36,6 +36,8 @@ import tubeTransportSystem.repack.codechicken.lib.vec.Vector3;
 import tubeTransportSystem.util.IConnectable;
 import tubeTransportSystem.util.Utilities;
 
+import static tubeTransportSystem.util.Utilities.isBlockTube;
+
 public class BlockStation extends Block implements IConnectable {
     public static BlockStation instance;
     public static IIcon side1, side2, side3, side4;
@@ -133,7 +135,7 @@ public class BlockStation extends Block implements IConnectable {
             else
                 return false;
 
-        if (blockAccess.getBlock(x, y, z) == BlockTube.instance)
+        if (isBlockTube(blockAccess.getBlock(x, y, z)))
             return false;
         else
             return true;
@@ -173,12 +175,12 @@ public class BlockStation extends Block implements IConnectable {
         if (meta >= SHIFT) { // top
             if (entity.isSneaking() && world.getBlockMetadata(x, y + 1, z) == ForgeDirection.UP.ordinal())
                 axis.add(Utilities.getCollisionBoxPart(x, y, z, ForgeDirection.UP));
-            else if (world.getBlock(x, y + 1, z) != BlockTube.instance)
+            else if (isBlockTube(world.getBlock(x, y + 1, z)))
                 axis.add(Utilities.getCollisionBoxPart(x, y, z, ForgeDirection.UP));
         } else if (entity.posY >= y)
             if (entity.isSneaking() && world.getBlockMetadata(x, y - 1, z) == ForgeDirection.DOWN.ordinal())
                 axis.add(Utilities.getCollisionBoxPartFloor(x, y, z));
-            else if (world.getBlock(x, y - 1, z) != BlockTube.instance)
+            else if (isBlockTube(world.getBlock(x, y - 1, z)))
                 axis.add(Utilities.getCollisionBoxPartFloor(x, y, z));
             else if (world.getBlockMetadata(x, y - 1, z) != ForgeDirection.DOWN.ordinal())
                 axis.add(Utilities.getCollisionBoxPartFloor(x, y, z));
@@ -218,7 +220,7 @@ public class BlockStation extends Block implements IConnectable {
         if (entity == null) return;
         int meta = world.getBlockMetadata(x, y, z);
 
-        if (!entity.isSneaking() && meta >= SHIFT && world.getBlock(x, y + 1, z) == BlockTube.instance && world.getBlockMetadata(x, y + 1, z) == ForgeDirection.UP.ordinal()) {
+        if (!entity.isSneaking() && meta >= SHIFT && isBlockTube(world.getBlock(x, y + 1, z)) && world.getBlockMetadata(x, y + 1, z) == ForgeDirection.UP.ordinal()) {
             Utilities.entityAccelerate(entity, ForgeDirection.UP);
             Utilities.entityAccelerate(entity, ForgeDirection.UP);
         }

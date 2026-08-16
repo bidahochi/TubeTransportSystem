@@ -10,24 +10,31 @@ import net.minecraftforge.common.config.Configuration;
 import tubeTransportSystem.block.BlockStation;
 import tubeTransportSystem.block.BlockStationHorizontal;
 import tubeTransportSystem.block.BlockTube;
+import tubeTransportSystem.block.BlockTubeTurbo;
 import tubeTransportSystem.item.ItemStation;
 import tubeTransportSystem.item.ItemTube;
 import cpw.mods.fml.common.registry.GameRegistry;
+import tubeTransportSystem.item.ItemTubeTurbo;
 
 public class ProxyCommon {
     Configuration config;
     public static double CONFIG_MAX_SPEED = 0.5;
     public static double CONFIG_MAX_SPEED_INVERSE = -0.5;
+    public static double CONFIG_MAX_SPEED_TURBO = 0.9;
+    public static double CONFIG_MAX_SPEED_TURBO_INVERSE = -0.9;
     public int lastSideHit = 0;
 
     public void setupConfig(File file) {
         config = new Configuration(file);
         CONFIG_MAX_SPEED = MathHelper.clamp_double(config.get("General", "MaxTubeSpeed", 0.5, "The maximum speed an entity can travel through the Transport Tubes").getDouble(), 0, 10);
         CONFIG_MAX_SPEED_INVERSE = -CONFIG_MAX_SPEED;
+        CONFIG_MAX_SPEED_TURBO = MathHelper.clamp_double(config.get("General", "MaxTubeSpeedTurbo", 0.5, "The maximum speed an entity can travel through the Turbo Transport Tubes").getDouble(), 0, 10);
+        CONFIG_MAX_SPEED_TURBO_INVERSE = -CONFIG_MAX_SPEED_TURBO;
     }
 
     public void registerBlocks() {
         GameRegistry.registerBlock(new BlockTube("tube"), ItemTube.class, "tube");
+        GameRegistry.registerBlock(new BlockTubeTurbo("tubeTurbo"), ItemTubeTurbo.class, "tubeTurbo");
         GameRegistry.registerBlock(new BlockStation("station"), ItemStation.class, "station");
         GameRegistry.registerBlock(new BlockStationHorizontal("station"), "stationH");
     }

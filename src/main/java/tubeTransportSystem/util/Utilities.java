@@ -2,6 +2,7 @@ package tubeTransportSystem.util;
 
 import java.util.List;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.AxisAlignedBB;
@@ -12,6 +13,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import tubeTransportSystem.block.BlockStation;
 import tubeTransportSystem.block.BlockStationHorizontal;
 import tubeTransportSystem.block.BlockTube;
+import tubeTransportSystem.block.BlockTubeTurbo;
 import tubeTransportSystem.network.ProxyCommon;
 import tubeTransportSystem.repack.codechicken.lib.raytracer.IndexedCuboid6;
 import tubeTransportSystem.repack.codechicken.lib.raytracer.RayTracer;
@@ -19,6 +21,11 @@ import tubeTransportSystem.repack.codechicken.lib.vec.Cuboid6;
 
 public class Utilities {
     public static RayTracer rayTracer = new RayTracer();
+
+    public static boolean isBlockTube(Block block)
+    {
+        return block == BlockTube.instance || block == BlockTubeTurbo.instance;
+    }
     
     public static void entityAccelerate(Entity entity, ForgeDirection direction) {
         if (direction == ForgeDirection.DOWN)
@@ -35,10 +42,31 @@ public class Utilities {
             entity.addVelocity(0.1, 0, 0);
     }
 
+    public static void entityAccelerateTurbo(Entity entity, ForgeDirection direction) {
+        if (direction == ForgeDirection.DOWN)
+            entity.addVelocity(0, -0.4, 0);
+        else if (direction == ForgeDirection.UP)
+            entity.addVelocity(0, 0.4, 0);
+        else if (direction == ForgeDirection.NORTH)
+            entity.addVelocity(0, 0, -0.4);
+        else if (direction == ForgeDirection.SOUTH)
+            entity.addVelocity(0, 0, 0.4);
+        else if (direction == ForgeDirection.EAST)
+            entity.addVelocity(-0.4, 0, 0);
+        else if (direction == ForgeDirection.WEST)
+            entity.addVelocity(0.4, 0, 0);
+    }
+
     public static void entityLimitSpeed(Entity entity) {
         entity.motionX = MathHelper.clamp_double(entity.motionX, ProxyCommon.CONFIG_MAX_SPEED_INVERSE, ProxyCommon.CONFIG_MAX_SPEED);
         entity.motionY = MathHelper.clamp_double(entity.motionY, ProxyCommon.CONFIG_MAX_SPEED_INVERSE, ProxyCommon.CONFIG_MAX_SPEED);
         entity.motionZ = MathHelper.clamp_double(entity.motionZ, ProxyCommon.CONFIG_MAX_SPEED_INVERSE, ProxyCommon.CONFIG_MAX_SPEED);
+    }
+
+    public static void entityLimitSpeedTurbo(Entity entity) {
+        entity.motionX = MathHelper.clamp_double(entity.motionX, ProxyCommon.CONFIG_MAX_SPEED_TURBO_INVERSE, ProxyCommon.CONFIG_MAX_SPEED_TURBO);
+        entity.motionY = MathHelper.clamp_double(entity.motionY, ProxyCommon.CONFIG_MAX_SPEED_TURBO_INVERSE, ProxyCommon.CONFIG_MAX_SPEED_TURBO);
+        entity.motionZ = MathHelper.clamp_double(entity.motionZ, ProxyCommon.CONFIG_MAX_SPEED_TURBO_INVERSE, ProxyCommon.CONFIG_MAX_SPEED_TURBO);
     }
 
     public static void entityResetFall(Entity entity) {

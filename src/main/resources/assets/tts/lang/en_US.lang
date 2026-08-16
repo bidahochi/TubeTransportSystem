@@ -1,4 +1,5 @@
 tile.tube.name=Transport Tube
+tile.tubeTurbo.name=Turbo Transport Tube
 tile.station.name=Tube Station
 itemGroup.tts=Tube Transport System
 item.tube.forced=Direction: %s

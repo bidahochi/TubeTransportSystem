@@ -9,7 +9,9 @@ import net.minecraftforge.common.MinecraftForge;
 import tubeTransportSystem.block.BlockStation;
 import tubeTransportSystem.block.BlockStationHorizontal;
 import tubeTransportSystem.block.BlockTube;
+import tubeTransportSystem.block.BlockTubeTurbo;
 import tubeTransportSystem.item.ItemTube;
+import tubeTransportSystem.item.ItemTubeTurbo;
 import tubeTransportSystem.network.ProxyCommon;
 import tubeTransportSystem.repack.codechicken.lib.raytracer.RayTracer;
 import tubeTransportSystem.util.CreativeTab;
@@ -60,7 +62,7 @@ public class TubeTransportSystem {
         if (event.target.typeOfHit == MovingObjectType.BLOCK) {
             Block b = event.player.worldObj.getBlock(event.target.blockX, event.target.blockY, event.target.blockZ);
             
-            if (b == BlockStation.instance || b == BlockStationHorizontal.instance || b == BlockTube.instance)
+            if (b == BlockStation.instance || b == BlockStationHorizontal.instance || b == BlockTube.instance || b == BlockTubeTurbo.instance)
                 RayTracer.retraceBlock(event.player.worldObj, event.player, event.target.blockX, event.target.blockY, event.target.blockZ);
             
             ItemStack stack = event.player.inventory.mainInventory[event.player.inventory.currentItem];
@@ -68,6 +70,9 @@ public class TubeTransportSystem {
             if (stack != null && stack.getItem() == ItemTube.instance) {
                 proxy.lastSideHit = event.target.sideHit;
             }
+            /*if (stack != null && stack.getItem() == ItemTubeTurbo.instance) {
+                proxy.lastSideHit = event.target.sideHit;
+            }*/
         }
     }
 }
