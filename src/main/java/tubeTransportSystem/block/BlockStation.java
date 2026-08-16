@@ -175,12 +175,12 @@ public class BlockStation extends Block implements IConnectable {
         if (meta >= SHIFT) { // top
             if (entity.isSneaking() && world.getBlockMetadata(x, y + 1, z) == ForgeDirection.UP.ordinal())
                 axis.add(Utilities.getCollisionBoxPart(x, y, z, ForgeDirection.UP));
-            else if (isBlockTube(world.getBlock(x, y + 1, z)))
+            else if (isBlockTube(world.getBlock(x, y + 1, z)) == false)
                 axis.add(Utilities.getCollisionBoxPart(x, y, z, ForgeDirection.UP));
         } else if (entity.posY >= y)
             if (entity.isSneaking() && world.getBlockMetadata(x, y - 1, z) == ForgeDirection.DOWN.ordinal())
                 axis.add(Utilities.getCollisionBoxPartFloor(x, y, z));
-            else if (isBlockTube(world.getBlock(x, y - 1, z)))
+            else if (isBlockTube(world.getBlock(x, y - 1, z)) == false)
                 axis.add(Utilities.getCollisionBoxPartFloor(x, y, z));
             else if (world.getBlockMetadata(x, y - 1, z) != ForgeDirection.DOWN.ordinal())
                 axis.add(Utilities.getCollisionBoxPartFloor(x, y, z));
