@@ -1,5 +1,7 @@
-![Logo](http://i.imgur.com/bNKvpVQ.png)
-[![Build Status](https://travis-ci.org/enhancedportals/TubeTransportSystem.svg)](https://travis-ci.org/enhancedportals/TubeTransportSystem)
+![Logo](https://coyoteindustries.neocities.org/imagery/tubetransportfoxmods.png)
+
+The Foxmods fork of Tube Transport System, doing some minor changes n stuff
+And TURBO TUBES!
 
 Useful Links:
 * [License](LICENSE)
